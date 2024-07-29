@@ -1,22 +1,24 @@
 package com.gildedtros;
 
+import com.gildedtros.factories.ItemFactory;
+
 public class TexttestFixture {
     public static void main(String[] args) {
         System.out.println("AXXES CODE KATA - GILDED TROS");
 
         Item[] items = new Item[] {
-                new Item("Ring of Cleansening Code", 10, 20),
-                new Item("Good Wine", 2, 0),
-                new Item("Elixir of the SOLID", 5, 7),
-                new Item("B-DAWG Keychain", 0, 80),
-                new Item("B-DAWG Keychain", -1, 80),
-                new Item("Backstage passes for Re:Factor", 15, 20),
-                new Item("Backstage passes for Re:Factor", 10, 49),
-                new Item("Backstage passes for HAXX", 5, 49),
+                ItemFactory.createItem("Ring of Cleansening Code", 10, 20),
+                ItemFactory.createItem("Good Wine", 2, 0),
+                ItemFactory.createItem("Elixir of the SOLID", 5, 7),
+                ItemFactory.createItem("B-DAWG Keychain", 0, 80),
+                ItemFactory.createItem("B-DAWG Keychain", -1, 80),
+                ItemFactory.createItem("Backstage passes for Re:Factor", 15, 20),
+                ItemFactory.createItem("Backstage passes for Re:Factor", 10, 49),
+                ItemFactory.createItem("Backstage passes for HAXX", 5, 49),
                 // these smelly items do not work properly yet
-                new Item("Duplicate Code", 3, 6),
-                new Item("Long Methods", 3, 6),
-                new Item("Ugly Variable Names", 3, 6) };
+                ItemFactory.createItem("Duplicate Code", 3, 6),
+                ItemFactory.createItem("Long Methods", 3, 6),
+                ItemFactory.createItem("Ugly Variable Names", 3, 6) };
 
         GildedTros app = new GildedTros(items);
 

@@ -1,5 +1,6 @@
-package com.gildedtros;
+package com.gildedtros.adapters;
 
+import com.gildedtros.Item;
 import com.gildedtros.interfaces.ItemVisitor;
 import com.gildedtros.interfaces.ItemVisitable;
 
