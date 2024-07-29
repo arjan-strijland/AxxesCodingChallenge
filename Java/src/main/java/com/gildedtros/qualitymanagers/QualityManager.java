@@ -20,7 +20,7 @@ public class QualityManager implements ItemVisitor {
 
         final int newQuality = anItem.quality + calculatedQualityDelta;
         if (withinQualityConstraints(newQuality)) {
-            anItem.quality += qualityDelta;
+            anItem.quality = newQuality;
         }
 
         anItem.sellIn += sellInDelta;

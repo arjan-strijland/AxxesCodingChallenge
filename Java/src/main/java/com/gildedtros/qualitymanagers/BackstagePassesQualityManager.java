@@ -6,8 +6,8 @@ public class BackstagePassesQualityManager extends QualityManager {
     private int determineBackstagePassQuality(BackstagePasses anItem) {
         int qualityDelta = 1;
 
-        if (anItem.sellIn <= 0) {
-            qualityDelta = 0;
+        if (anItem.sellIn < 0) {
+            qualityDelta = anItem.quality * -1;
         } else if (anItem.sellIn <= 5) {
             qualityDelta = 3;
         } else if (anItem.sellIn <= 10) {
