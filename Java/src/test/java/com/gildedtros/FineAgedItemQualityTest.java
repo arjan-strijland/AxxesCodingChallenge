@@ -13,13 +13,15 @@ public class FineAgedItemQualityTest {
     void testItemQualityManager() {
         FineAgedItem item = new FineAgedItem("Some Fine Wine", 30, 10);
         FineAgedItemQualityManager manager = new FineAgedItemQualityManager();
-        manager.visit(item);
+        manager.updateSellIn(item);
+        manager.updateQuality(item);
 
         assertEquals(item.quality, 11);
         assertEquals(item.sellIn, 29);
 
         for (int i = 0; i < 50; i++) {
-            manager.visit(item);
+            manager.updateSellIn(item);
+            manager.updateQuality(item);
         }
 
         assertEquals(item.quality, 50);

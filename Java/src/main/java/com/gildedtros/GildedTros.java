@@ -1,31 +1,24 @@
 package com.gildedtros;
 
-import com.gildedtros.adapters.ItemAdapter;
-import com.gildedtros.qualitymanagers.*;
+import com.gildedtros.factories.QualityManagerFactory;
+import com.gildedtros.interfaces.IQualityManager;
 
 class GildedTros {
     Item[] items;
-    private final QualityManager[] qualityManagers = new QualityManager[] {
-            new ItemQualityManager(),
-            new FineAgedItemQualityManager(),
-            new SmellyItemQualityManager(),
-            new BackstagePassesQualityManager()
-    };
 
     public GildedTros(Item[] items) {
         this.items = items;
     }
 
-    private void processItem(Item anItem) {
-        for (QualityManager manager : qualityManagers) {
-            ItemAdapter adapter = new ItemAdapter(anItem);
-            adapter.accept(manager);
-        }
+    private void updateItem(Item anItem) {
+        IQualityManager manager = QualityManagerFactory.createQualityManager(anItem);
+        manager.updateSellIn(anItem);
+        manager.updateQuality(anItem);
     }
 
     public void updateQuality() {
         for (Item item : items) {
-            processItem(item);
+            updateItem(item);
         }
     }
 }

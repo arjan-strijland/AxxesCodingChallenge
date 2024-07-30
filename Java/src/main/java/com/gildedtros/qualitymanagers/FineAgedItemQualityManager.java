@@ -1,11 +1,11 @@
 package com.gildedtros.qualitymanagers;
 
-import com.gildedtros.specialitems.FineAgedItem;
+import com.gildedtros.Item;
 
 public class FineAgedItemQualityManager extends QualityManager {
+
     @Override
-    public void visit(FineAgedItem anItem) {
-        throw new NullPointerException("Bla");
-//        processItem(anItem, -1, 1);
+    public void updateQuality(Item anItem) {
+        processItemQuality(anItem, 1);
     }
 }

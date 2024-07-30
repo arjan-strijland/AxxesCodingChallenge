@@ -1,7 +1,7 @@
 package com.gildedtros.factories;
 
 import com.gildedtros.Item;
-import com.gildedtros.specialitems.BackstagePasses;
+import com.gildedtros.specialitems.BackstagePassItem;
 import com.gildedtros.specialitems.FineAgedItem;
 import com.gildedtros.specialitems.LegendaryItem;
 import com.gildedtros.specialitems.SmellyItem;
@@ -19,7 +19,7 @@ public class ItemFactory {
             result = new LegendaryItem(aName);
         }
         else if (aName.contains("Backstage passes")) {
-            result = new BackstagePasses(aName, aSellIn, aQuality);
+            result = new BackstagePassItem(aName, aSellIn, aQuality);
         } else if (Arrays.asList(SMELLY_ITEM_NAMES).contains(aName)) {
             result = new SmellyItem(aName, aSellIn, aQuality);
         }

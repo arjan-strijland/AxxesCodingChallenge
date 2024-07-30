@@ -1,53 +1,37 @@
 package com.gildedtros.qualitymanagers;
 
 import com.gildedtros.Item;
-import com.gildedtros.interfaces.ItemVisitor;
-import com.gildedtros.specialitems.BackstagePasses;
-import com.gildedtros.specialitems.FineAgedItem;
-import com.gildedtros.specialitems.LegendaryItem;
-import com.gildedtros.specialitems.SmellyItem;
+import com.gildedtros.interfaces.IQualityManager;
 
-public class QualityManager implements ItemVisitor {
-    protected boolean withinQualityConstraints(int newQuality) {
-        return newQuality >= 0 && newQuality <= 50;
+public abstract class QualityManager implements IQualityManager {
+    protected void updateQualityWithConstraint(Item anItem, int newQuality) {
+        final int MAX_QUALITY = 50;
+        final int MIN_QUALITY = 0;
+        if (newQuality <= MIN_QUALITY) {
+            anItem.quality = MIN_QUALITY;
+        }
+        else {
+            anItem.quality = Math.min(newQuality, MAX_QUALITY);
+        }
     }
 
-    protected void processItem(Item anItem, int sellInDelta, int qualityDelta) {
-        int calculatedQualityDelta = qualityDelta;
-        if (anItem.sellIn < 0 && calculatedQualityDelta < 0) {
-            calculatedQualityDelta *= 2;
+    protected int calculateDecay(Item anItem, int qualityDelta) {
+        int decay = 0;
+        if (anItem.sellIn < 0) {
+            decay = qualityDelta;
         }
 
+        return decay;
+    }
+
+    protected void processItemQuality(Item anItem, int qualityDelta) {
+        final int calculatedQualityDelta = qualityDelta + calculateDecay(anItem, qualityDelta);
         final int newQuality = anItem.quality + calculatedQualityDelta;
-        if (withinQualityConstraints(newQuality)) {
-            anItem.quality = newQuality;
-        }
-
-        anItem.sellIn += sellInDelta;
+        updateQualityWithConstraint(anItem, newQuality);
     }
 
     @Override
-    public void visit(Item anItem) {
-
-    }
-
-    @Override
-    public void visit(FineAgedItem anItem) {
-
-    }
-
-    @Override
-    public void visit(LegendaryItem anItem) {
-
-    }
-
-    @Override
-    public void visit(BackstagePasses anItem) {
-
-    }
-
-    @Override
-    public void visit(SmellyItem anItem) {
-
+    public void updateSellIn(Item anItem) {
+        anItem.sellIn -= 1;
     }
 }

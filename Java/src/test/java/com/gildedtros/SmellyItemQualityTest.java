@@ -12,13 +12,15 @@ public class SmellyItemQualityTest {
     void testItemQualityManager() {
         SmellyItem item = new SmellyItem("A very smelly item", 30, 10);
         SmellyItemQualityManager manager = new SmellyItemQualityManager();
-        manager.visit(item);
+        manager.updateSellIn(item);
+        manager.updateQuality(item);
 
         assertEquals(item.quality, 8);
         assertEquals(item.sellIn, 29);
 
         for (int i = 0; i < 50; i++) {
-            manager.visit(item);
+            manager.updateSellIn(item);
+            manager.updateQuality(item);
         }
 
         assertEquals(item.quality, 0);
@@ -31,7 +33,8 @@ public class SmellyItemQualityTest {
         SmellyItemQualityManager manager = new SmellyItemQualityManager();
 
         for (int i = 0; i < 15; i++) {
-            manager.visit(item);
+            manager.updateSellIn(item);
+            manager.updateQuality(item);
         }
 
         assertEquals(item.quality, 12);

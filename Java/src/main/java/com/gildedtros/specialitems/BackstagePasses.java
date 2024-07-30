@@ -1,9 +1,0 @@
-package com.gildedtros.specialitems;
-
-import com.gildedtros.Item;
-
-public class BackstagePasses extends Item {
-    public BackstagePasses(String name, int sellIn, int quality) {
-        super(name, sellIn, quality);
-    }
-}
