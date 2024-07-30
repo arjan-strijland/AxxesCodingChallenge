@@ -1,64 +1,31 @@
 package com.gildedtros;
 
+import com.gildedtros.adapters.ItemAdapter;
+import com.gildedtros.qualitymanagers.*;
+
 class GildedTros {
     Item[] items;
+    private final QualityManager[] qualityManagers = new QualityManager[] {
+            new ItemQualityManager(),
+            new FineAgedItemQualityManager(),
+            new SmellyItemQualityManager(),
+            new BackstagePassesQualityManager()
+    };
 
     public GildedTros(Item[] items) {
         this.items = items;
     }
 
+    private void processItem(Item anItem) {
+        for (QualityManager manager : qualityManagers) {
+            ItemAdapter adapter = new ItemAdapter(anItem);
+            adapter.accept(manager);
+        }
+    }
+
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Good Wine")
-                    && !items[i].name.equals("Backstage passes for Re:Factor")
-                    && !items[i].name.equals("Backstage passes for HAXX"))
-            {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals("B-DAWG Keychain")) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-
-                    if (items[i].name.equals("Backstage passes for Re:Factor") || items[i].name.equals("Backstage passes for HAXX") ) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!items[i].name.equals("B-DAWG Keychain")) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Good Wine")) {
-                    if (!items[i].name.equals("Backstage passes for Re:Factor") && !items[i].name.equals("Backstage passes for HAXX")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("B-DAWG Keychain")) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
-            }
+        for (Item item : items) {
+            processItem(item);
         }
     }
 }

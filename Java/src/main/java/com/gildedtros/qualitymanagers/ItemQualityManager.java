@@ -10,6 +10,10 @@ import com.gildedtros.specialitems.SmellyItem;
 public class ItemQualityManager extends QualityManager {
     @Override
     public void visit(Item anItem) {
+        if (anItem.getClass() != Item.class ) {
+            return;
+        }
+
         processItem(anItem, -1, -1);
     }
 }
